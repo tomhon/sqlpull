@@ -21,6 +21,9 @@ var Connection = require('tedious').Connection;
         console.log("Connected");
         executeStatement();
         console.log("Output from function " + PartnerISV);
+        PartnerISV.forEach(Array) {
+            
+        }
     });
 
     var Request = require('tedious').Request;
