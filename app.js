@@ -1,11 +1,13 @@
 var restify = require('restify');
 
-var PartnerISV = [
-    ['Snapchat Inc'],['James Cadd <jacadd@microsoft.com>'],
-    ['Twitter Inc'],['Chris Barker <cbarker@microsoft.com>'],
-    ['Yahoo!'],['Maarten van de Bospoort <maartenb@microsoft.com>'],
-    ['baidu'],['Yansong Li <yansongl@microsoft.com>'],    
-];
+// var PartnerISV = [
+//     ['Snapchat Inc'],['James Cadd <jacadd@microsoft.com>'],
+//     ['Twitter Inc'],['Chris Barker <cbarker@microsoft.com>'],
+//     ['Yahoo!'],['Maarten van de Bospoort <maartenb@microsoft.com>'],
+//     ['baidu'],['Yansong Li <yansongl@microsoft.com>'],    
+// ];
+
+var arrTEIsv = [];
 
 var Connection = require('tedious').Connection;
     var config = {
@@ -20,10 +22,11 @@ var Connection = require('tedious').Connection;
         // If no error, then good to proceed.
         console.log("Connected");
         executeStatement();
-        console.log("Output from function " + PartnerISV);
-        PartnerISV.forEach(Array) {
-            
-        }
+        var time = event.timeStamp;
+        console.log(time);
+        console.log(arrTEIsv, arrTEIsv[5]);
+        // console.log("Output from function " + PartnerISV);
+
     });
 
     var Request = require('tedious').Request;
@@ -46,6 +49,7 @@ var Connection = require('tedious').Connection;
               }
             });
             console.log(result);
+            arrTEIsv.push(result);
             result ="";
         });
 
