@@ -7,7 +7,8 @@ var restify = require('restify');
 //     ['baidu'],['Yansong Li <yansongl@microsoft.com>'],    
 // ];
 
-var arrTEIsv = [];
+var arrayIsvTE = [];
+var cacheDataAvailable = false;
 
 var Connection = require('tedious').Connection;
     var config = {
@@ -21,10 +22,10 @@ var Connection = require('tedious').Connection;
     connection.on('connect', function(err) {
         // If no error, then good to proceed.
         console.log("Connected");
+        arrayIsvTE.push("First Item on the mapping array");
         executeStatement();
-        var time = event.timeStamp;
-        console.log(time);
-        console.log(arrTEIsv, arrTEIsv[5]);
+                console.log("Cache data available " + cacheDataAvailable);
+        console.log("Mapping Array length = " + arrayIsvTE.length);
         // console.log("Output from function " + PartnerISV);
 
     });
@@ -49,14 +50,19 @@ var Connection = require('tedious').Connection;
               }
             });
             console.log(result);
-            arrTEIsv.push(result);
+            arrayIsvTE.push(result);
             result ="";
+            console.log(arrayIsvTE[0]);
+            console.log(arrayIsvTE.length);
         });
 
         request.on('done', function(rowCount, more) {
         console.log(rowCount + ' rows returned');
         });
         connection.execSql(request);
+        cacheDataAvailable = true;
+        console.log("Cache data available " + cacheDataAvailable);
+        console.log("Line 59 " + arrayIsvTE.length);
     };
 
 
@@ -64,7 +70,10 @@ var Connection = require('tedious').Connection;
 // Setup Restify Server
 var server = restify.createServer();
 
+
 server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
-     
+    console.log(arrayIsvTE.length); 
+    console.log("Cache data available " + cacheDataAvailable);
+
 });
